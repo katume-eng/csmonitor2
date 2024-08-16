@@ -1,0 +1,7 @@
+{{ message }}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" name="submit">Submit</button>
+</form>

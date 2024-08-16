@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>各locationでの混雑度の表示</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .color-box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+        .none {
+            background-color: #8f8c8c; /* 混雑度がNoneのときの色（グレー） */
+        }
+        .low {
+            background-color: #43bd48; /* 混雑度が低いときの色（ライトグリーン） */
+        }
+        .medium {
+            background-color: #f4d54c; /* 混雑度が中程度のときの色（ライトイエロー） */
+        }
+        .high {
+            background-color: #ef6371; /* 混雑度が高いときの色（ライトレッド） */
+        }
+    </style>
+</head>
+<body>
+    <h1>協力いただいているブースの混雑度を表示しています</h1>
+    <p><span class="color-box none">.</span>→データがないため混雑度がわかりません</p>
+    <p><span class="color-box low">.</span>→混雑していない</p>
+    <p><span class="color-box medium">.</span>→少し混雑している</p>
+    <p><span class="color-box high">.</span>→混雑している</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>プログラム名</th>
+                <th>場所</th>
+                <th>混雑度</th>
+                <th>混雑度の情報量</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in model %}
+            <tr>
+                <td>{{ data.0 }}</td>
+                <td>{{ data.1 }}</td>
+                <td class="
+                {% if data.2 is none %}
+                    none
+                {% elif data.2 <= 3 %}
+                    low
+                {% elif data.2 <= 6 %}
+                    medium
+                {% else %}
+                    high
+                {% endif %}
+                ">{{ data.2 }}</td>
+                <td>実装中</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

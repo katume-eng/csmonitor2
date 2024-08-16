@@ -1,0 +1,10 @@
+<p>提出されたすべてのデータを一覧にしています</p>
+{% block content %}
+<div>
+    <ul>
+      {% for obj in model %}
+        <li>level = {{  obj.crowd_level }} , location = {{  obj.location }}</li>
+      {% endfor %}
+    </ul>
+</div>
+{% endblock %}

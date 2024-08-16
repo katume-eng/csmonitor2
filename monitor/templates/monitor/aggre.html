@@ -1,0 +1,9 @@
+<p>１時間以内に提出されたデータを集計して一覧にしています</p>
+
+<div>
+    <ul>
+      {% for obj in model %}
+        <li>level = {{  obj.crowd_level }} , location = {{  obj.location }}</li>
+      {% endfor %}
+    </ul>
+</div>
