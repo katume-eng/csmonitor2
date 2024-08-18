@@ -13,12 +13,27 @@ from django.utils import timezone
 S44 = "S44"
 CM3 = "COMMUNICATIONCAT3"
 GML = "GEOROGYLABOLATORY"
+S43 = "S43"
+SRS = "理科調査研究室"
+S70 = "S70"
+S71 = "S71"
+S72 = "S72"
+S73 = "S73"
+S74 = "S74"
 #####
 
 lp_map = {
     S44 : "TOMIKEN",
     CM3 : "プログラム名",
     GML : "地球の正体",
+    S43 : "S43",
+    SRS : "理科調査研究室",
+    S70 : "S70",
+    S71 : "S71",
+    S72 : "S72",
+    S73 : "S73",
+    S74 : "S74",
+
 }
 
 
