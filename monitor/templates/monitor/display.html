@@ -63,7 +63,7 @@
                 <th>プログラム名</th>
                 <th>場所</th>
                 <th>混雑度</th>
-                <th>混雑度の情報量</th>
+                <th>情報量</th>
             </tr>
         </thead>
         <tbody>
@@ -82,7 +82,7 @@
                     high
                 {% endif %}
                 ">{{ data.2 }}</td>
-                <td>実装中</td>
+                <td>{{ data.3 }}件</td>
             </tr>
             {% endfor %}
         </tbody>

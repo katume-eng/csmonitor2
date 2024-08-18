@@ -59,8 +59,9 @@ def display(request):
     # loc = location
     eld = []
     for loc in lp_map:
-        crowd_lavel_aggregated = last_1_hour.filter(location=loc).aggregate(crowd_level_avg=Avg('crowd_level')) 
-        eld.append([lp_map[loc],loc , int(crowd_lavel_aggregated['crowd_level_avg']*10)/10])
+        crowd_lavel_aggregated = last_1_hour.filter(location=loc).aggregate(crowd_level_avg=Avg('crowd_level'))
+        crowd_lavel_counted = last_1_hour.filter(location=loc).count()
+        eld.append([lp_map[loc],loc , int(crowd_lavel_aggregated['crowd_level_avg']*10)/10,crowd_lavel_counted])
 
     context = {
         "model":eld,
