@@ -56,13 +56,16 @@
     <p><span class="color-box low">.</span>→混雑していない</p>
     <p><span class="color-box medium">.</span>→少し混雑している</p>
     <p><span class="color-box high">.</span>→混雑している</p>
-    
+
+    <!--eld[プログラム名,場所,混雑度,情報量,情報の種類]-->
+
     <table>
         <thead>
             <tr>
                 <th>プログラム名</th>
                 <th>場所</th>
-                <th>混雑度</th>
+                <th>情報の種類</th>
+                <th>情報</th>
                 <th>情報量</th>
             </tr>
         </thead>
@@ -71,6 +74,13 @@
             <tr>
                 <td>{{ data.0 }}</td>
                 <td>{{ data.1 }}</td>
+                <td>
+                    {% if data.4 >= 1 %}
+                        列の待ち時間
+                    {% else %}
+                        混雑度
+                    {% endif %}
+                </td>
                 <td class="
                 {% if data.2 is none %}
                     none

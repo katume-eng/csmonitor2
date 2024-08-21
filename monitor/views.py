@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from .forms import DataForm
 from .models import CrowdData
-from .models import lp_map
+from .models import lp_map,lr_map
 from django.shortcuts import render
 from django.utils import timezone
 from django.db.models import Avg
@@ -54,7 +54,6 @@ def display(request):
     last_1_hour = CrowdData.objects.filter(
         pub_date__gte = now - datetime.timedelta(hours=1)
     )
-    # ell = each_location_level///
     # eld = each_location_data ( location, program_name, crowd_level)
     # loc = location
     eld = []
@@ -65,11 +64,10 @@ def display(request):
             crowd_level_perfect = int(crowd_level_aggregated["crowd_level_avg"]*10)/10
         else:
             crowd_level_perfect = None
-        eld.append([lp_map[loc],loc , crowd_level_perfect,crowd_level_counted])
+        eld.append([lp_map[loc],loc , crowd_level_perfect,crowd_level_counted,lr_map[loc]])
 
     context = {
         "model":eld,
-        "lp_map":lp_map,
     }
     return render(request,"monitor/display.html",context)
 

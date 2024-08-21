@@ -36,6 +36,20 @@ lp_map = {
 
 }
 
+# locationと(0,列情報 1,混雑情報)
+lr_map = {
+    S44 : 1,
+    CM3 : 1,
+    GML : 0,
+    S43 : 1,
+    SRS : 1,
+    S70 : 1,
+    S71 : 1,
+    S72 : 1,
+    S73 : 0,
+    S74 : 0,
+}
+
 
 class CrowdData(models.Model):
 
