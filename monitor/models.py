@@ -1,6 +1,8 @@
 from django.db import models
 import datetime
 from django.utils import timezone
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 #CrowdDataモデル。データベースの構造を決定
 # 1.location 場所のデータをchoiceで管理
@@ -58,7 +60,7 @@ class CrowdData(models.Model):
     #####
 
     location = models.CharField(max_length=20,choices=LOCATION_CHOICE)
-    crowd_level = models.IntegerField("Crowd Level")
+    crowd_level = models.IntegerField("Crowd Level",validators=[MinValueValidator(1), MaxValueValidator(10)])
     pub_date = models.DateTimeField("pub_date",default=timezone.now)
 
     # localtimeにしてAsia/Tokyoに合わせる modelは時間をUTCで保存するらしい

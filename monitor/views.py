@@ -19,11 +19,10 @@ def report(request):
 
     if request.method == 'POST':
         form = DataForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             form = DataForm()
             return render(request, url_report, {"form":form,"message":ok})
-        
         else:
             form = DataForm()
             return render(request, url_report, {"form":form,"message":nok})
@@ -31,23 +30,6 @@ def report(request):
     #else:エラーでも吐いとけ
 
     return render(request, url_report, {"form":form,"message":init_str})
-
-
-def list(request):
-    qs = CrowdData.objects.all()
-    context = {}
-    context["model"] = qs
-    return render(request,"monitor/tables.html",context)
-
-# 計算view.1時間以内のデータかどうかを考える
-def aggre(request):
-    now = timezone.now()
-    last_1_hour = CrowdData.objects.filter(
-        pub_date__gte = now - datetime.timedelta(hours=1)
-    )
-    context = {}
-    context["model"] = last_1_hour
-    return render(request,"monitor/aggre.html",context)
 
 def display(request):
     now = timezone.now()
@@ -70,6 +52,23 @@ def display(request):
         "model":eld,
     }
     return render(request,"monitor/display.html",context)
+
+def list(request):
+    qs = CrowdData.objects.all()
+    context = {}
+    context["model"] = qs
+    return render(request,"monitor/tables.html",context)
+
+# 計算view.1時間以内のデータかどうかを考える
+def aggre(request):
+    now = timezone.now()
+    last_1_hour = CrowdData.objects.filter(
+        pub_date__gte = now - datetime.timedelta(hours=1)
+    )
+    context = {}
+    context["model"] = last_1_hour
+    return render(request,"monitor/aggre.html",context)
+
 
 #    仮
 #    if request.method == 'POST':
