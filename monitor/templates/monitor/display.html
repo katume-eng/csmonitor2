@@ -48,16 +48,25 @@
         .high {
             background-color: #ef6371; /* 混雑度が高いときの色（ライトレッド） */
         }
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>協力いただいているブースの混雑度を表示しています</h1>
-    <p><span class="color-box none">.</span>→データがないため混雑度がわかりません</p>
-    <p><span class="color-box low">.</span>→混雑していない</p>
-    <p><span class="color-box medium">.</span>→少し混雑している</p>
-    <p><span class="color-box high">.</span>→混雑している</p>
-
-    <!--eld[プログラム名,場所,混雑度,情報量,情報の種類]-->
+    <div>
+        <p><span class="color-box none">.</span> <strong>データなし:</strong> 混雑度がわかりません</p>
+        <p><span class="color-box low">.</span> <strong>空いている:</strong> 混雑していません</p>
+        <p><span class="color-box medium">.</span> <strong>やや混雑:</strong> 少し混雑しています</p>
+        <p><span class="color-box high">.</span> <strong>混雑中:</strong> 混雑しています</p>
+    </div>
 
     <table>
         <thead>
@@ -91,7 +100,17 @@
                 {% else %}
                     high
                 {% endif %}
-                ">{{ data.2 }}</td>
+                ">
+                    {% if data.4 >= 1 and data.2 is none %}
+                        不明
+                    {% elif data.4 >= 1 %}
+                        約{{ data.2 }}分
+                    {% elif data.2 is none %}
+                        不明
+                    {% else %}
+                        {{ data.2 }}
+                    {% endif %}
+                </td>
                 <td>{{ data.3 }}件</td>
             </tr>
             {% endfor %}
