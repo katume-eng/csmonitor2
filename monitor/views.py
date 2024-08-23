@@ -68,19 +68,20 @@ async def test_async(request):
             print(f"Total time for {n} async requests: {end_time - start_time:.2f} seconds")
 
 def test_sync(request):
+    result = []
     for n in times_of_requests:
         responses = []
         start_time = time.time()
         for _ in range(n):
             responses.append(requests.get(test_site_url))
         end_time = time.time()
-        print(f"Total time for {n} sync requests: {end_time - start_time:.2f} seconds")
-        time.sleep(2)
-    print('the end of test')
+        result.append(end_time - start_time)
+        print("patch end")
+        time.sleep(0.5)
+    print(result)
 
 def test_site(request):
-    return HttpResponse('OK')
-
+    return
 
 # class ReportView(FormView):
 #     template_name = "monitor/report2.html"
