@@ -9,7 +9,7 @@ urlpatterns = [
     # ex: /monitr/display/
     path("display/",views.display,name="display"),
     # ex: /monitor/test_async/
-    path("test_async/",views.test_async,name="test_async"),
+    path("test_async/",views_test.test_async,name="test_async"),
     # ex: /monitor/test_sync/
     path("test_sync/",views_test.test_sync,name="test_sync"),
     # ex: /monitor/test_site/
