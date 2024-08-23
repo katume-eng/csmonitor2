@@ -53,21 +53,51 @@ def display(request):
     }
     return render(request,"monitor/display.html",context)
 
-def list(request):
-    qs = CrowdData.objects.all()
-    context = {}
-    context["model"] = qs
-    return render(request,"monitor/tables.html",context)
+import time
+import httpx
+import asyncio
+import requests
 
-# 計算view.1時間以内のデータかどうかを考える
-def aggre(request):
-    now = timezone.now()
-    last_1_hour = CrowdData.objects.filter(
-        pub_date__gte = now - datetime.timedelta(hours=1)
-    )
-    context = {}
-    context["model"] = last_1_hour
-    return render(request,"monitor/aggre.html",context)
+times_of_requests = [10, 20, 50, 100, 200, 500]
+test_site_url = 'http://localhost:8003/test_site/'
+
+async def test_async(request):
+    async with httpx.AsyncClient() as client:
+        for n in times_of_requests:
+            start_time = time.time()
+            tasks = [client.get(test_site_url) for _ in range(n)]
+            responses = await asyncio.gather(*tasks)
+            end_time = time.time()
+            print(f"Total time for {n} async requests: {end_time - start_time:.2f} seconds")
+
+def test_sync(request):
+    for n in times_of_requests:
+        responses = []
+        start_time = time.time()
+        for _ in range(n):
+            responses.append(requests.get(test_site_url))
+        end_time = time.time()
+        print(f"Total time for {n} sync requests: {end_time - start_time:.2f} seconds")
+        time.sleep(2)
+
+def test_site(request):
+    return HttpResponse('OK')
+
+# def list(request):
+#     qs = CrowdData.objects.all()
+#     context = {}
+#     context["model"] = qs
+#     return render(request,"monitor/tables.html",context)
+# 
+# # 計算view.1時間以内のデータかどうかを考える
+# def aggre(request):
+#     now = timezone.now()
+#     last_1_hour = CrowdData.objects.filter(
+#         pub_date__gte = now - datetime.timedelta(hours=1)
+#     )
+#     context = {}
+#     context["model"] = last_1_hour
+#     return render(request,"monitor/aggre.html",context)
 
 
 #    仮
