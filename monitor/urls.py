@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from . import views_test
 
 urlpatterns = [
     # ex: /monitor/
@@ -10,9 +11,9 @@ urlpatterns = [
     # ex: /monitor/test_async/
     path("test_async/",views.test_async,name="test_async"),
     # ex: /monitor/test_sync/
-    path("test_sync/",views.test_sync,name="test_sync"),
+    path("test_sync/",views_test.test_sync,name="test_sync"),
     # ex: /monitor/test_site/
-    path("test_site",views.test_site,name="test_site"),
+    path("test_site",views_test.test_site,name="test_site"),
     # ex: /report2.html/
     # path("", ReportView.as_view(), name="report2")
     # ex: /tables/
