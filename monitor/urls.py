@@ -1,18 +1,21 @@
 from django.urls import path
 
 from . import views
+from .views import ReportView
 
 urlpatterns = [
-    # ex: 
+    # ex: /monitor/
     path("", views.report, name="report"),
-    # ex: /display/
+    # ex: /monitr/display/
     path("display/",views.display,name="display"),
-    # ex: /test_async/
+    # ex: /monitor/test_async/
     path("test_async/",views.test_async,name="test_async"),
-    # ex: /test_sync/
+    # ex: /monitor/test_sync/
     path("test_sync/",views.test_sync,name="test_sync"),
-    # ex: /test_site/
+    # ex: /monitor/test_site/
     path("test_site",views.test_site,name="test_site"),
+    # ex: /report2.html/
+    # path("", ReportView.as_view(), name="report2")
     # ex: /tables/
     # path("tables/",views.list,name="tables"),
     # ex: /aggre/

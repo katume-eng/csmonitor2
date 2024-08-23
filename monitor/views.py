@@ -6,8 +6,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.db.models import Avg
 import datetime
-
-
+# from django.views.generic.edit import FormView
 
 
 def report(request):
@@ -26,8 +25,6 @@ def report(request):
         else:
             form = DataForm()
             return render(request, url_report, {"form":form,"message":nok})
-        
-    #else:エラーでも吐いとけ
 
     return render(request, url_report, {"form":form,"message":init_str})
 
@@ -79,9 +76,31 @@ def test_sync(request):
         end_time = time.time()
         print(f"Total time for {n} sync requests: {end_time - start_time:.2f} seconds")
         time.sleep(2)
+    print('the end of test')
 
 def test_site(request):
     return HttpResponse('OK')
+
+
+# class ReportView(FormView):
+#     template_name = "monitor/report2.html"
+#     form_class = DataForm
+#     success_message = "送信に成功しました。データの提供ありがとうございます"
+#     failure_message = "足りないデータがあるか、不適切なデータがあります"
+#     initial_message = "データを入力してボタンを押してください。levelは0~10で入力してください"
+# 
+#     def form_valid(self, form):
+#         form.save()
+#         return self.render_to_response(self.get_context_data(form=self.form_class(), message=self.success_message))
+# 
+#     def form_invalid(self, form):
+#         return self.render_to_response(self.get_context_data(form=self.form_class(), message=self.failure_message))
+# 
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         if 'message' not in context:
+#             context['message'] = self.initial_message
+#         return context
 
 # def list(request):
 #     qs = CrowdData.objects.all()
