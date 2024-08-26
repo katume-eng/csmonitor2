@@ -10,6 +10,8 @@ urlpatterns = [
     path("display/",views.display,name="display"),
     # ex: /monitor/test_async/
     path("test_async/",views_test.test_async,name="test_async"),
+    # ex: /monitor/report_test/
+    path("test_report/",views_test.test_report,name="test_report"),
     # ex: /monitor/test_sync/
     path("test_sync/",views_test.test_sync,name="test_sync"),
     # ex: /monitor/test_site/
