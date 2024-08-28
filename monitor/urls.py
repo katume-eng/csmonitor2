@@ -12,6 +12,8 @@ urlpatterns = [
     path("test_async/",views_test.test_async,name="test_async"),
     # ex: /monitor/report_test/
     path("test_report/",views_test.test_report,name="test_report"),
+    # ex: /monitor/report_test_async/
+    path("test_report_async/",views_test.test_report_async,name="test_report_async"),
     # ex: /monitor/test_sync/
     path("test_sync/",views_test.test_sync,name="test_sync"),
     # ex: /monitor/test_site/
