@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Congestion Situation Monitor in YSFH</title>
     <style>
+        :root {
+            --color-none: #8f8c8c;
+            --color-low: #43bd48;
+            --color-medium: #f4d54c;
+            --color-high: #ef6371;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -13,6 +19,31 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 20px;
+            width: calc(100% - 40px);
+            max-width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .color-box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
         }
         table {
             border-collapse: collapse;
@@ -31,31 +62,20 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        .color-box {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-        }
         .none {
-            background-color: #8f8c8c; /* 混雑度がNoneのときの色（グレー） */
+            background-color: var(--color-none); /* 混雑度がNoneのときの色（グレー） */
         }
         .low {
-            background-color: #43bd48; /* 混雑度が低いときの色（ライトグリーン） */
+            background-color: var(--color-low); /* 混雑度が低いときの色（ライトグリーン） */
         }
         .medium {
-            background-color: #f4d54c; /* 混雑度が中程度のときの色（ライトイエロー） */
+            background-color: var(--color-medium); /* 混雑度が中程度のときの色（ライトイエロー） */
         }
         .high {
-            background-color: #ef6371; /* 混雑度が高いときの色（ライトレッド） */
+            background-color: var(--color-high); /* 混雑度が高いときの色（ライトレッド） */
         }
-        @media (max-width: 768px) {
-            table {
-                width: 100%;
-                font-size: 14px;
-            }
-            th, td {
-                padding: 8px;
-            }
+        .info {
+            margin: 10px 0;
         }
     </style>
 </head>
@@ -68,53 +88,48 @@
         <p><span class="color-box high">.</span> <strong>混雑中:</strong> 混雑しています</p>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>プログラム名</th>
-                <th>場所</th>
-                <th>情報の種類</th>
-                <th>情報</th>
-                <th>情報量</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in model %}
-            <tr>
-                <td>{{ data.0 }}</td>
-                <td>{{ data.1 }}</td>
-                <td>
-                    {% if data.4 >= 1 %}
-                        列の待ち時間
-                    {% else %}
-                        混雑度
-                    {% endif %}
-                </td>
-                <td class="
-                {% if data.2 is none %}
-                    none
-                {% elif data.2 <= 3 %}
-                    low
-                {% elif data.2 <= 6 %}
-                    medium
+    <h1>協力いただいているブースの混雑度を表示しています</h1>
+    <div class="card-container">
+        {% for data in model %}
+        <div class="card 
+            {% if data.2 is none %}
+                none
+            {% elif data.2 <= 3 %}
+                low
+            {% elif data.2 <= 6 %}
+                medium
+            {% else %}
+                high
+            {% endif %}
+        ">
+            <h2>{{ data.0 }}</h2>
+            <p class="info"><strong>場所:</strong> {{ data.1 }}</p>
+            <p class="info"><strong>情報の種類:</strong> 
+                {% if data.4 >= 1 %}
+                    列の待ち時間
                 {% else %}
-                    high
+                    混雑度
                 {% endif %}
-                ">
-                    {% if data.4 >= 1 and data.2 is none %}
-                        不明
-                    {% elif data.4 >= 1 %}
-                        約{{ data.2 }}分
-                    {% elif data.2 is none %}
-                        不明
-                    {% else %}
-                        {{ data.2 }}
-                    {% endif %}
-                </td>
-                <td>{{ data.3 }}件</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </p>
+            <p class="info"><strong>情報:</strong> 
+                {% if data.4 >= 1 and data.2 is none %}
+                    不明
+                {% elif data.4 >= 1 %}
+                    約{{ data.2 }}分
+                {% elif data.2 is none %}
+                    不明
+                {% else %}
+                    {{ data.2 }}
+                {% endif %}
+            </p>
+            <p class="info"><strong>情報量:</strong> {{ data.3 }}件</p>
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+        setInterval(() => {
+            location.reload();
+        }, 5000);
+    </script>
 </body>
 </html>
