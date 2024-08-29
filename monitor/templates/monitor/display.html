@@ -102,23 +102,23 @@
             {% endif %}
         ">
             <h2>{{ data.0 }}</h2>
-            <p class="info"><strong>場所:</strong> {{ data.1 }}</p>
-            <p class="info"><strong>情報の種類:</strong> 
+            <p class="info">{{ data.1 }}</p>
+            <p class="info"> 
                 {% if data.4 >= 1 %}
-                    列の待ち時間
+                    列の待ち時間は
                 {% else %}
-                    混雑度
+                    混雑度は
                 {% endif %}
             </p>
-            <p class="info"><strong>情報:</strong> 
+            <p class="info"> 
                 {% if data.4 >= 1 and data.2 is none %}
-                    不明
+                    <strong>不明</strong>
                 {% elif data.4 >= 1 %}
-                    約{{ data.2 }}分
+                    <strong>約{{ data.2 }}分</strong>
                 {% elif data.2 is none %}
-                    不明
+                    <strong>不明</strong>
                 {% else %}
-                    {{ data.2 }}
+                    <strong>{{ data.2 }}</strong>
                 {% endif %}
             </p>
             <p class="info"><strong>情報量:</strong> {{ data.3 }}件</p>
@@ -128,7 +128,7 @@
     <script>
         setInterval(() => {
             location.reload();
-        }, 5000);
+        }, 30000);
     </script>
 </body>
 </html>
