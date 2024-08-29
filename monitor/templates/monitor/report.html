@@ -10,6 +10,11 @@
             text-align: center; /* テキストを中央に揃える */
             margin-bottom: 20px; /* フォームとの間に余白を追加 */
         }
+        .form-container {
+            width: 100%; /* 横幅を画面全体に広げる */
+            display: flex;
+            justify-content: center; /* フォームを中央に配置 */
+        }
         form {
             display: flex;
             flex-direction: column;
@@ -21,6 +26,12 @@
             border: 1px solid #ccc; /* フォームの周りに枠を追加 */
             border-radius: 8px; /* 角を丸くします */
             background-color: #f9f9f9; /* 背景色を指定 */
+            transition: background-color 0.3s ease; /* 背景色の変化をアニメーションにする */
+        }
+
+        /* ホバー時にフォーム全体の背景色を変更 */
+        .form-container:hover form {
+            background-color: #e0e0e0; /* ホバー時の背景色 */
         }
 
         /* ボタンのスタイル */
@@ -56,11 +67,12 @@
 <body>
     <h1>{{ message }}</h1>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit" name="submit">Submit</button>
-    </form>
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" name="submit">Submit</button>
+        </form>
+    </div>
 
-</body>
-</html>
+</body></html>
