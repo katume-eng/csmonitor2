@@ -10,9 +10,9 @@ import datetime
 
 
 def report(request):
-    init_str = "データを入力してボタンを押してください。levelは0~10で入力してください"
-    ok = "送信に成功しました。データの提供ありがとうございます"
-    nok = "足りないデータがあるか、不適切なデータがあります"
+    init_str = "データを入力してボタンを押してください"
+    ok = "送信に成功しました!データの提供ありがとうございます"
+    nok = "送信に失敗しました!不適切なデータがあります"
     url_report = "monitor/report.html"
     form = DataForm()
 

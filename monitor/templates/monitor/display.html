@@ -19,6 +19,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden; /* 自動スクロールのためにオーバーフローを隠す */
         }
         .card-container {
             display: flex;
@@ -26,6 +27,8 @@
             justify-content: center;
             width: 100%;
             padding: 20px;
+            overflow-y: auto; /* 縦スクロールを可能に */
+            height: calc(100vh - 150px); /* スクロールエリアの高さを調整 */
         }
         .card {
             background-color: #ffffff;
@@ -37,6 +40,7 @@
             max-width: 300px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
+            font-size: 1.1rem; /* 文字サイズを少し大きく */
         }
         .color-box {
             display: inline-block;
@@ -77,6 +81,17 @@
         .info {
             margin: 10px 0;
         }
+
+        /* 縦画面時のスタイル調整 */
+        @media (max-width: 600px) {
+            .card-container {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            .card {
+                width: calc(50% - 40px); /* 横に2列表示 */
+            }
+        }
     </style>
 </head>
 <body>
@@ -88,7 +103,7 @@
         <p><span class="color-box high">.</span> <strong>混雑中:</strong> 混雑しています</p>
     </div>
 
-    <div class="card-container">
+    <div class="card-container" id="scroll-container">
         {% for data in model %}
         <div class="card 
             {% if data.2 is none %}
@@ -126,9 +141,28 @@
         {% endfor %}
     </div>
     <script>
+        // 自動スクロールのスクリプト
+        function autoScroll() {
+            const scrollContainer = document.getElementById('scroll-container');
+            let scrollAmount = 0;
+            const scrollStep = 1;
+            const scrollInterval = setInterval(() => {
+                scrollContainer.scrollTop += scrollStep;
+                scrollAmount += scrollStep;
+                if (scrollAmount >= scrollContainer.scrollHeight - scrollContainer.clientHeight) {
+                    clearInterval(scrollInterval);
+                    setTimeout(() => {
+                        location.reload(); // スクロールが終わったらリロード
+                    }, 2000);
+                }
+            }, 23); // スクロールの速度を調整（数字を小さくすると速くなる）
+        }
+
         setInterval(() => {
             location.reload();
-        }, 10000);
+        }, 30000);
+
+        window.onload = autoScroll;
     </script>
 </body>
 </html>
