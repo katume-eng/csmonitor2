@@ -30,15 +30,15 @@ def report(request):
 
 def display(request):
     now = timezone.now()
-    last_1_hour = CrowdData.objects.filter(
-        pub_date__gte = now - datetime.timedelta(hours=1)
+    last_30_minutes = CrowdData.objects.filter(
+        pub_date__gte = now - datetime.timedelta(minutes=30)
     )
     # eld = each_location_data ( location, program_name, crowd_level)
     # loc = location
     eld = []
     for loc in lp_map:
-        crowd_level_aggregated = last_1_hour.filter(location=loc).aggregate(crowd_level_avg=Avg('crowd_level'))
-        crowd_level_counted = last_1_hour.filter(location=loc).count()
+        crowd_level_aggregated = last_30_minutes.filter(location=loc).aggregate(crowd_level_avg=Avg('crowd_level'))
+        crowd_level_counted = last_30_minutes.filter(location=loc).count()
         if crowd_level_aggregated["crowd_level_avg"] is not None:
             crowd_level_perfect = int(crowd_level_aggregated["crowd_level_avg"]*10)/10
         else:

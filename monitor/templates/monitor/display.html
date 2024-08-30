@@ -158,11 +158,19 @@
             }, 23); // スクロールの速度を調整（数字を小さくすると速くなる）
         }
 
-        setInterval(() => {
-            location.reload();
-        }, 30000);
+        // スクロールが必要かどうかチェック
+        function checkScroll() {
+            const scrollContainer = document.getElementById('scroll-container');
+            if (scrollContainer.scrollHeight > scrollContainer.clientHeight) {
+                autoScroll(); // スクロールが必要なら自動スクロールを開始
+            } else {
+                setTimeout(() => {
+                    location.reload(); // スクロールが不要なら20秒ごとにリロード
+                }, 20000);
+            }
+        }
 
-        window.onload = autoScroll;
+        window.onload = checkScroll;
     </script>
 </body>
 </html>
