@@ -59,8 +59,8 @@ class CrowdData(models.Model):
     LOCATION_CHOICE = dict(lp_map)
     #####
 
-    location = models.CharField(max_length=20,choices=LOCATION_CHOICE)
-    crowd_level = models.IntegerField("Crowd Level",validators=[MinValueValidator(1), MaxValueValidator(10)])
+    location = models.CharField("場所",max_length=20,choices=LOCATION_CHOICE)
+    crowd_level = models.IntegerField("混雑状況もしくは並び時間",validators=[MinValueValidator(1), MaxValueValidator(10)])
     pub_date = models.DateTimeField("pub_date",default=timezone.now)
 
     # localtimeにしてAsia/Tokyoに合わせる modelは時間をUTCで保存するらしい

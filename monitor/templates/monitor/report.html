@@ -6,7 +6,7 @@
     <title>フォーム送信サイト</title>
     <style>
         /* フォーム全体を中央に配置 */
-        h1,p {
+        h1,p,h3 {
             text-align: center; /* テキストを中央に揃える */
             margin-bottom: 20px; /* フォームとの間に余白を追加 */
         }
@@ -71,19 +71,20 @@
         <form method="post">
             {% csrf_token %}
             {{ form }}
-            <button type="submit" name="submit">Submit</button>
+            <button type="submit" name="submit">提出</button>
         </form>
     </div>
 
     <h1>データ送信の目安</h1>
 
-    <p>出入りが自由な企画<strong>→</strong>混雑度を0~10で入力してください</p>
-    <p>0 <strong>→</strong>まだ何人も入場できる状態</p>
-    <p>5 <strong>→</strong>人はいるがまだ入る余裕が十分にある状態</p>
-    <p>10 <strong>→</strong>もうこれ以上は入れない状態</p>
-    <p>それ以外の企画<strong>→</strong>おおよその待ち時間を分単位で入力してください</p>
-    <p>0 <strong>→</strong>待たずには入れる</p>
-    <p>10 <strong>→</strong>10分以上かかる</p>
+    <h3>出入りが自由な企画</h3><p>:混雑度を0~10で入力してください</p>
+    <p>0 →まだ何人も入場できる状態</p>
+    <p>5 →人はいるがまだ入る余裕が十分にある状態</p>
+    <p>10 →もうこれ以上は入れない状態</p>
+    <h3>それ以外の企画</h3><p>:おおよその待ち時間を分単位で入力してください</p>
+    <p>0 →待たずには入れる</p>
+    <p>5 →5分ほど並んでは入れる</p>
+    <p>10 →10分以上かかる</p>
 
 
 </body>
