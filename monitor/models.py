@@ -38,18 +38,20 @@ lp_map = {
 
 }
 
-# locationと(0,列情報 1,混雑情報)
-lr_map = {
-    S44 : 1,
-    CM3 : 1,
-    GML : 0,
-    S43 : 1,
-    SRS : 1,
-    S70 : 1,
-    S71 : 1,
-    S72 : 1,
-    S73 : 0,
-    S74 : 0,
+# location:(0,列情報 1,混雑情報),(0,基本的には最後まで活動 1,不活動時間がある)
+init_comment = "全力で開催します！ぜひ来てください！"
+
+status_map = {
+    S44 : [1,init_comment],
+    CM3 : [1,init_comment],
+    GML : [0,init_comment],
+    S43 : [1,init_comment],
+    SRS : [1,init_comment],
+    S70 : [1,init_comment],
+    S71 : [1,init_comment],
+    S72 : [1,init_comment],
+    S73 : [0,init_comment],
+    S74 : [0,init_comment],
 }
 
 
@@ -60,7 +62,7 @@ class CrowdData(models.Model):
     #####
 
     location = models.CharField("場所",max_length=20,choices=LOCATION_CHOICE)
-    crowd_level = models.IntegerField("混雑状況もしくは並び時間",validators=[MinValueValidator(1), MaxValueValidator(10)])
+    crowd_level = models.IntegerField("混雑状況もしくは並び時間",validators=[MinValueValidator(0), MaxValueValidator(10)])
     pub_date = models.DateTimeField("pub_date",default=timezone.now)
 
     # localtimeにしてAsia/Tokyoに合わせる modelは時間をUTCで保存するらしい

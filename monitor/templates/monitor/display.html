@@ -34,10 +34,10 @@
             background-color: #ffffff;
             border: 1px solid #ddd;
             border-radius: 8px;
-            margin: 10px;
-            padding: 20px;
+            margin: 5px;
+            padding: 5px;
             width: calc(100% - 40px);
-            max-width: 300px;
+            max-width: 250px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
             font-size: 1.1rem; /* 文字サイズを少し大きく */
@@ -117,15 +117,13 @@
             {% endif %}
         ">
             <h2>{{ data.0 }}</h2>
-            <p class="info">{{ data.1 }}</p>
+            <p class="info"><strong>{{ data.1 }}</strong></p>
             <p class="info"> 
                 {% if data.4 >= 1 %}
                     列の待ち時間は
                 {% else %}
                     混雑度は
                 {% endif %}
-            </p>
-            <p class="info"> 
                 {% if data.4 >= 1 and data.2 is none %}
                     <strong>不明</strong>
                 {% elif data.4 >= 1 %}
@@ -136,7 +134,10 @@
                     <strong>{{ data.2 }}</strong>
                 {% endif %}
             </p>
-            <p class="info"><strong>情報量:</strong> {{ data.3 }}件</p>
+            <p class="info">情報量: {{ data.3 }}件</p>
+            <p class="info">
+                {{ data.5 }}
+            </p>
         </div>
         {% endfor %}
     </div>

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from .forms import DataForm
 from .models import CrowdData
-from .models import lp_map,lr_map
+from .models import lp_map,status_map
 from django.shortcuts import render
 from django.utils import timezone
 from django.db.models import Avg
@@ -43,7 +43,7 @@ def display(request):
             crowd_level_perfect = int(crowd_level_aggregated["crowd_level_avg"]*10)/10
         else:
             crowd_level_perfect = None
-        eld.append([lp_map[loc],loc , crowd_level_perfect,crowd_level_counted,lr_map[loc]])
+        eld.append([lp_map[loc],loc , crowd_level_perfect,crowd_level_counted,status_map[loc][0],status_map[loc][1]])
 
     context = {
         "model":eld,
