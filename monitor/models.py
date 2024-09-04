@@ -14,11 +14,17 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 #####locationの詳細定義 場所＝プログラム名で定義
 S45 = "S45"
 JK1 = "情報教室1"
-E3P = "生徒昇降口,3FS34前PCラウンジ"
+E3P = "1F生徒昇降口付近,3FS34前PCラウンジ"
 S46 = "S46"
 S3W = "S37,S38"
 CMC = "コミュニケーションコート"
 JAK = "柔剣道場"
+BOL = "生物実験室"
+C31 = "C31"
+SHR = "視聴覚室"
+HOL = "ホール"
+S21_L = "S21,図書室"
+S55 = "S55"
 #####
 
 lp_map = {
@@ -29,7 +35,12 @@ lp_map = {
     S3W : "ロボパーティーForBetting",
     CMC : "パフェって504通りあんねん",
     JAK : "トレトレかるた",
-
+    BOL : "いっつぁまいくろわーるど",
+    C31 : "いっつぁまいくろわーるど",
+    SHR : "驚きと発見の実験ショータイム",
+    HOL : "理系が踊れちゃってごめん",
+    S21_L : "古本市、ビブリオバトル",
+    S55 : "楽しいメイドカジノ~博学投資~",
 }
 
 # location:(0,列情報(並ぶ企画) 1,混雑情報(出入り自由)),一言
@@ -43,6 +54,12 @@ status_map = {
     S3W : [1,"ロボ探です。お昼時間以外はやってます!"],
     CMC : [0,"美味なパフェをあなたに"],
     JAK : [1,"午前は見学、午後は整理券必須の体験企画!"],
+    BOL : [0,"いっつぁまいくろわーるど"],
+    C31 : [1,"いっつぁまいくろわーるど"],
+    SHR : [1,"驚きと発見の実験ショータイム"],
+    HOL : [1,"理系が踊れちゃってごめん"],
+    S21_L : [1,"古本市、ビブリオバトル"],
+    S55 : [0,"楽しいメイドカジノ~博学投資~"],
 }
 
 
@@ -52,7 +69,7 @@ class CrowdData(models.Model):
     LOCATION_CHOICE = dict(lp_map)
     #####
 
-    location = models.CharField("場所",max_length=20,choices=LOCATION_CHOICE)
+    location = models.CharField("場所",max_length=25,choices=LOCATION_CHOICE)
     crowd_level = models.IntegerField("混雑状況もしくは並び時間",validators=[MinValueValidator(0), MaxValueValidator(10)])
     pub_date = models.DateTimeField("pub_date",default=timezone.now)
 

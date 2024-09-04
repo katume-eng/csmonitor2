@@ -4,8 +4,9 @@ from .models import CrowdData
 from .models import lp_map,status_map
 from django.shortcuts import render
 from django.utils import timezone
-from django.db.models import Avg
+from django.db.models import Avg,Q,Count
 import datetime
+from numpy import percentile
 # from django.views.generic.edit import FormView
 
 # event
@@ -39,19 +40,36 @@ def display(request):
     # loc = location
     eld = []
     for loc in lp_map:
-        crowd_level_aggregated = last_30_minutes.filter(location=loc).aggregate(crowd_level_avg=Avg('crowd_level'))
-        crowd_level_counted = last_30_minutes.filter(location=loc).count()
-        if crowd_level_aggregated["crowd_level_avg"] is not None:
-            crowd_level_perfect = int(crowd_level_aggregated["crowd_level_avg"]*10)/10
+        location_data = last_30_minutes.filter(location=loc)
+        
+        if location_data.exists():
+            # Crowd level dataのリストを取得
+            crowd_levels = list(location_data.values_list('crowd_level', flat=True))
+            # 四分位範囲を計算
+            Q1 = percentile(crowd_levels, 25)
+            Q3 = percentile(crowd_levels, 75)
+            IQR = Q3 - Q1
+            # 外れ値の閾値
+            lower_bound = Q1 - 1.5 * IQR
+            upper_bound = Q3 + 1.5 * IQR
+            # 外れ値を除外
+            filtered_data = location_data.filter(
+                Q(crowd_level__gte=lower_bound) & Q(crowd_level__lte=upper_bound)
+            )
+            
+            crowd_level_aggregated = filtered_data.aggregate(crowd_level_avg=Avg('crowd_level'))
+            crowd_level_perfect = int(crowd_level_aggregated["crowd_level_avg"] * 10) / 10 if crowd_level_aggregated["crowd_level_avg"] is not None else None
+            crowd_level_counted = filtered_data.count()
+
         else:
             crowd_level_perfect = None
-        eld.append([lp_map[loc],loc , crowd_level_perfect,crowd_level_counted,status_map[loc][0],status_map[loc][1]])
+            crowd_level_counted = 0
+        eld.append([lp_map[loc], loc, crowd_level_perfect, crowd_level_counted, status_map[loc][0], status_map[loc][1]])
 
     context = {
-        "model":eld,
+        "model": eld,
     }
-    return render(request,"monitor/display.html",context)
-
+    return render(request, "monitor/display.html", context)
 # class viewを用いたview
 # class ReportView(FormView):
 #     template_name = "monitor/report2.html"
