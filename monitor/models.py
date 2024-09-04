@@ -12,46 +12,37 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # def was_publish.. : 直近のクエリかどうか
 
 #####locationの詳細定義 場所＝プログラム名で定義
-S44 = "S44"
-CM3 = "COMMUNICATIONCAT3"
-GML = "GEOROGYLABOLATORY"
-S43 = "S43"
-SRS = "理科調査研究室"
-S70 = "S70"
-S71 = "S71"
-S72 = "S72"
-S73 = "S73"
-S74 = "S74"
+S45 = "S45"
+JK1 = "情報教室1"
+E3P = "生徒昇降口,3FS34前PCラウンジ"
+S46 = "S46"
+S3W = "S37,S38"
+CMC = "コミュニケーションコート"
+JAK = "柔剣道場"
 #####
 
 lp_map = {
-    S44 : "TOMIKEN",
-    CM3 : "プログラム名",
-    GML : "地球の正体",
-    S43 : "S43",
-    SRS : "理科調査研究室",
-    S70 : "S70",
-    S71 : "S71",
-    S72 : "S72",
-    S73 : "S73",
-    S74 : "S74",
+    S45 : "根城はサイコロを振らない",
+    JK1 : "情報工学部 ゲーム展",
+    E3P : "緑の羽根募金",
+    S46 : "ふっ、おもしれーゲーム",
+    S3W : "ロボパーティーForBetting",
+    CMC : "パフェって504通りあんねん",
+    JAK : "トレトレかるた",
 
 }
 
-# location:(0,列情報 1,混雑情報),(0,基本的には最後まで活動 1,不活動時間がある)
+# location:(0,列情報(並ぶ企画) 1,混雑情報(出入り自由)),一言
 init_comment = "全力で開催します！ぜひ来てください！"
 
 status_map = {
-    S44 : [1,init_comment],
-    CM3 : [1,init_comment],
-    GML : [0,init_comment],
-    S43 : [1,init_comment],
-    SRS : [1,init_comment],
-    S70 : [1,init_comment],
-    S71 : [1,init_comment],
-    S72 : [1,init_comment],
-    S73 : [0,init_comment],
-    S74 : [0,init_comment],
+    S45 : [1,"健全？でクリーン？なカジノをやってます!"],
+    JK1 : [1,"景品のピコピコハンマーのチャンスあります"],
+    E3P : [1,"募金にご協力をお願いします!"],
+    S46 : [0,"ボードゲームは楽しいZOY!"],
+    S3W : [1,"ロボ探です。お昼時間以外はやってます!"],
+    CMC : [0,"美味なパフェをあなたに"],
+    JAK : [1,"午前は見学、午後は整理券必須の体験企画!"],
 }
 
 

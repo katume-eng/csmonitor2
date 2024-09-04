@@ -9,24 +9,42 @@ import datetime
 # from django.views.generic.edit import FormView
 
 
-def report(request):
-    init_str = "データを入力してボタンを押してください"
+def report(request, event):
     ok = "送信に成功しました!データの提供ありがとうございます"
     nok = "送信に失敗しました!不適切なデータがあります"
     url_report = "monitor/report.html"
-    form = DataForm()
 
     if request.method == 'POST':
         form = DataForm(request.POST)
         if form.is_valid():
             form.save()
-            form = DataForm()
-            return render(request, url_report, {"form":form,"message":ok})
+            form = DataForm(
+                initial={
+                    "location": lp_map[event],
+                    "crowd_level":0,
+            })  # 正しく初期化
+            message = ok
         else:
-            form = DataForm()
-            return render(request, url_report, {"form":form,"message":nok})
+            form = DataForm(
+                initial={
+                    "location": lp_map[event],
+                    "crowd_level":0,
+            })  # 正しく初期化
+            message = nok
+    else:
+        form = DataForm(
+            initial={
+                "location": lp_map[event],
+                "crowd_level":0,
+            }
+        )  # 正しく初期化
+        message = ""
 
-    return render(request, url_report, {"form":form,"message":init_str})
+    print(lp_map[event])
+    print(form)
+
+    return render(request, url_report, {"form": form, "message": message})
+
 
 def display(request):
     now = timezone.now()

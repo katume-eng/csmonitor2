@@ -4,10 +4,10 @@ from . import views
 # from . import views_test
 
 urlpatterns = [
-    # ex: /monitor/
-    path("", views.report, name="report"),
     # ex: /monitr/display/
     path("display/",views.display,name="display"),
+    # ex: /monitor/
+    path("<path:event>", views.report, name="report"),
     # ex: /monitor/test_async/
     # path("test_async/",views_test.test_async,name="test_async"),
     # ex: /monitor/report_test/
