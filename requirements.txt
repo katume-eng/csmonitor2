@@ -12,6 +12,7 @@ h11==0.14.0
 httpcore==1.0.5
 httpx==0.27.0
 idna==3.7
+numpy==2.1.1
 packaging==24.1
 psycopg2-binary==2.9.9
 python-decouple==3.8
