@@ -7,7 +7,9 @@ urlpatterns = [
     # ex: /monitr/display/
     path("display/",views.display,name="display"),
     # ex: /monitor/
-    path("<path:event>", views.report, name="report"),
+    path("", views.report, name="report"),
+    # "<path:event>"
+]
     # ex: /monitor/test_async/
     # path("test_async/",views_test.test_async,name="test_async"),
     # ex: /monitor/report_test/
@@ -33,4 +35,3 @@ urlpatterns = [
     #path("<int:crowddata_id>/results/", views.results, name="results"),
     ## ex: //5/vote/
     #path("<int:crowddata_id>/vote/", views.vote, name="vote"),
-]
