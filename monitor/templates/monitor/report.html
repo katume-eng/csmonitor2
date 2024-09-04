@@ -70,7 +70,7 @@
     <div class="form-container">
         <form method="post">
             {% csrf_token %}
-            {{ form }}
+            {{ form.as_p }}
             <button type="submit" name="submit">提出</button>
         </form>
     </div>

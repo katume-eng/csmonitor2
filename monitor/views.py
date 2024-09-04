@@ -8,8 +8,8 @@ from django.db.models import Avg
 import datetime
 # from django.views.generic.edit import FormView
 
-
-def report(request, event):
+# event
+def report(request):
     ok = "送信に成功しました!データの提供ありがとうございます"
     nok = "送信に失敗しました!不適切なデータがあります"
     url_report = "monitor/report.html"
@@ -18,30 +18,14 @@ def report(request, event):
         form = DataForm(request.POST)
         if form.is_valid():
             form.save()
-            form = DataForm(
-                initial={
-                    "location": lp_map[event],
-                    "crowd_level":0,
-            })  # 正しく初期化
+            form = DataForm()  # 正しく初期化
             message = ok
         else:
-            form = DataForm(
-                initial={
-                    "location": lp_map[event],
-                    "crowd_level":0,
-            })  # 正しく初期化
+            form = DataForm()  # 正しく初期化
             message = nok
     else:
-        form = DataForm(
-            initial={
-                "location": lp_map[event],
-                "crowd_level":0,
-            }
-        )  # 正しく初期化
+        form = DataForm()  # 正しく初期化
         message = ""
-
-    print(lp_map[event])
-    print(form)
 
     return render(request, url_report, {"form": form, "message": message})
 
