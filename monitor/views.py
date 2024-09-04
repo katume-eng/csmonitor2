@@ -10,10 +10,34 @@ from numpy import percentile
 # from django.views.generic.edit import FormView
 
 # event
-def report(request):
+def report(request, event_name):
     ok = "送信に成功しました!データの提供ありがとうございます"
     nok = "送信に失敗しました!不適切なデータがあります"
     url_report = "monitor/report.html"
+
+    initial_value = {"location":event_name,"crowd_level":0}
+
+    if request.method == 'POST':
+        form = DataForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = DataForm(initial_value)  # 正しく初期化
+            message = ok
+        else:
+            form = DataForm(initial_value)  # 正しく初期化
+            message = nok
+    else:
+        form = DataForm(initial_value)  # 正しく初期化
+        message = ""
+
+    return render(request, url_report, {"form": form, "message": message})
+
+def report_none(request):
+    ok = "送信に成功しました!データの提供ありがとうございます"
+    nok = "送信に失敗しました!不適切なデータがあります"
+    url_report = "monitor/report.html"
+
+    
 
     if request.method == 'POST':
         form = DataForm(request.POST)
