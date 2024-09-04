@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from .forms import DataForm
 from .models import CrowdData
-from .models import lp_map,status_map
+from .models import lp_map,status_map,ln_map
 from django.shortcuts import render
 from django.utils import timezone
 from django.db.models import Avg,Q,Count
@@ -10,12 +10,13 @@ from numpy import percentile
 # from django.views.generic.edit import FormView
 
 # event
-def report(request, event_name):
+def report(request, event_name_short):
     ok = "送信に成功しました!データの提供ありがとうございます"
     nok = "送信に失敗しました!不適切なデータがあります"
     url_report = "monitor/report.html"
+    
 
-    initial_value = {"location":event_name,"crowd_level":0}
+    initial_value = {"location":ln_map[event_name_short],"crowd_level":0}
 
     if request.method == 'POST':
         form = DataForm(request.POST)
@@ -36,8 +37,6 @@ def report_none(request):
     ok = "送信に成功しました!データの提供ありがとうございます"
     nok = "送信に失敗しました!不適切なデータがあります"
     url_report = "monitor/report.html"
-
-    
 
     if request.method == 'POST':
         form = DataForm(request.POST)
