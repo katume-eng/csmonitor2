@@ -57,7 +57,7 @@ def report_none(request):
 def display(request):
     now = timezone.now()
     last_30_minutes = CrowdData.objects.filter(
-        pub_date__gte = now - datetime.timedelta(minutes=10)
+        pub_date__gte = now - datetime.timedelta(minutes=20)# 今は20分です
     )
     # eld = each_location_data ( location, program_name, crowd_level)
     # loc = location
